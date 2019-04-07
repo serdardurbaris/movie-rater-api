@@ -1,7 +1,8 @@
 from django.shortcuts import render
 
 from django.contrib.auth.models import User
-from rest_framework import viewsets, status
+#from rest_framework import viewsets, status
+from rest_framework import viewsets, status, permissions
 from movierater.api.serializers import UserSerializer
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -21,14 +22,16 @@ class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     authentication_classes = (TokenAuthentication, SessionAuthentication)
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 class RatingViewSet(viewsets.ModelViewSet):
 
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
     authentication_classes = (TokenAuthentication, SessionAuthentication)
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     @list_route(methods=['post'])
     def rate_movie(self, request):
